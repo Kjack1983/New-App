@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Articles Model
@@ -37,7 +38,36 @@ class ArticlesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        /* $this->hasMany('relatedArticles'); */
+
+        $this->hasMany('relatedArticles', array(
+            'foreignKey' => 'article_id'
+        ));
     }
+
+    /**
+     * Fetch all related articles from article Id.
+     *
+     * @param [integer] $id
+     * @return [Array] $related_articles_by_id
+     */
+    public function fetchRelatedArticles($id = null) {
+        $relatedArticlesTable = TableRegistry::get('related_articles');
+        
+        $query = $relatedArticlesTable
+                    ->find()
+                    ->select(['id','title', 'created','body'])
+                    ->where(['articles_id' => $id]);
+
+        $related_articles_by_id = array(); 
+
+        foreach ($query as $row) {
+            $related_articles_by_id[] = $row;
+        }
+
+        return $related_articles_by_id;
+    }
+
 
     /**
      * Default validation rules.

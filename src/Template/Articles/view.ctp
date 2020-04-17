@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
+
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -41,11 +42,9 @@
             <?= $this->Form->create($article->archived) ?>
             <td>
                 <?php
-                    echo $this->Form->button('archived');
+                    echo $this->Form->button('Archive', array('class' => 'btn btn-success'));
                 ?>
             </td>
-            <td><?php //$this->Form->button(__('Archived')) ?></td>
-            <?php /* $article->archived ? __('Yes') : __('No');  */?>
             <?= $this->Form->end() ?>
             
         </tr>
@@ -53,5 +52,18 @@
     <div class="row">
         <h4><?= __('Body') ?></h4>
         <?= $this->Text->autoParagraph(h($article->body)); ?>
+        <h4><?= __('Related Articles') ?></h4>
+        <?php
+            $htmlRow = '<section class="Posts">'; 
+            foreach($relatedArticles as $row) {    
+                $htmlRow .= '<article class="Post">' .
+                $this->Html->link('View Post', array('controller' => 'relatedArticles', 'action' => 'view', $row['id']))
+                .'<h3>Title:'.$row['title'].'</h3>'
+                .'<div class="Author">Content: ' .$row['body']. '</div>'                
+                .'</article>';
+            }
+            $htmlRow .= '</section>';
+            echo $htmlRow;
+        ?>
     </div>
 </div>

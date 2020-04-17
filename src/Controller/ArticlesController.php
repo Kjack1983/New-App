@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Entity\RelatedArticle;
+use App\Model\Table\RelatedArticles;
+use App\Model\Table\Articles;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -44,21 +47,55 @@ class ArticlesController extends AppController
             'contain' => [],
         ]);
 
-        // Set article archive.
-        if ($this->request->is('post') && $article->archived === false) {            
-            // set article archive to true. 
-            $article->archived = true;
+        // fetch related articles.
+        $relatedArticles = $this->Articles->fetchRelatedArticles($id);
 
-            if ($this->Articles->save($article)) {
-                $this->Flash->success(__('The article has been saved.'));
-                return $this->redirect(['action' => 'index']);
+        // Set article archive.
+        if ($this->request->is('post')) {            
+            // set article archive to true. 
+            if ($article->archived === false) {
+                $article->archived = true;
+                if ($this->Articles->save($article)) {
+                    $this->Flash->success(__('The article has been marked as archived'));
+                    $this->rediretToIndexHelper();
+                }
+            } else {
+                $article->archived = false;
+                if ($this->Articles->save($article)) {
+                    $this->Flash->success(__('The article has been marked as unarchived'));
+                    $this->rediretToIndexHelper();
+                }
             }
-            $this->Flash->error(__('The article archive could not be saved. Please, try again!'));
-        } else {
-            $this->Flash->error(__('The article has been marked as marked!'));
         }
 
-        $this->set('article', $article);
+        $this->set(compact('article', 'relatedArticles'));
+    }
+
+    private function rediretToIndexHelper() {
+        return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    private function fetchRelatedArticles($id = null) {
+        $relatedArticlesTable = TableRegistry::get('related_articles');
+        
+        $query = $relatedArticlesTable
+                    ->find()
+                    ->select(['title', 'body'])
+                    ->where(['articles_id' => $id]);
+
+        $related_articles_by_id = array(); 
+
+        foreach ($query as $row) {
+            $related_articles_by_id[] = $row;
+        }
+
+        return $related_articles_by_id;
     }
 
     /**

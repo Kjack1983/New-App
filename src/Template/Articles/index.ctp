@@ -26,13 +26,14 @@
         </thead>
         <tbody>
             <?php foreach ($articles as $article): ?>
-            <tr <?php if ($article->archived): ?> class="highlight"<?php endif;?>>
+                <?php $archivedArticle = ($article->archived ? '<button type="button" class="btn btn-warning">Archived</button>': '<button type="button" class="btn btn-success">Non Archived</button>'); ?>
+                <tr <?php if ($article->archived): ?> class="highlight"<?php endif;?>>
                 <td><?= $this->Number->format($article->id) ?></td>
                 <td><?= h($article->title) ?></td>
                 <td><?= h($article->created) ?></td>
                 <td><?= h($article->modified) ?></td>
                 <td><?= h($article->reference) ?></td>
-                <td><?= h($article->archived) ?></td>
+                <td><?php echo $archivedArticle; ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $article->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $article->id]) ?>
