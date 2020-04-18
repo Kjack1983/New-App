@@ -6,6 +6,8 @@ use App\Model\Entity\RelatedArticle;
 use App\Model\Table\RelatedArticles;
 use App\Model\Table\Articles;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
+use Cake\Utility\Set;
 
 /**
  * Articles Controller
@@ -47,8 +49,8 @@ class ArticlesController extends AppController
             'contain' => [],
         ]);
 
-        // fetch related articles.
-        $relatedArticles = $this->Articles->fetchRelatedArticles($id);
+        // fetch  related articles.
+        $assocRelatedArticles = $this->Articles->fetchAssocRelatedArticles($id);
 
         // Set article archive.
         if ($this->request->is('post')) {            
@@ -68,34 +70,14 @@ class ArticlesController extends AppController
             }
         }
 
-        $this->set(compact('article', 'relatedArticles'));
-    }
-
-    private function rediretToIndexHelper() {
-        return $this->redirect(['action' => 'index']);
+        $this->set(compact('article', 'assocRelatedArticles'));
     }
 
     /**
-     * Undocumented function
-     *
-     * @param [type] $id
-     * @return void
+     * Redirect to index helper method
      */
-    private function fetchRelatedArticles($id = null) {
-        $relatedArticlesTable = TableRegistry::get('related_articles');
-        
-        $query = $relatedArticlesTable
-                    ->find()
-                    ->select(['title', 'body'])
-                    ->where(['articles_id' => $id]);
-
-        $related_articles_by_id = array(); 
-
-        foreach ($query as $row) {
-            $related_articles_by_id[] = $row;
-        }
-
-        return $related_articles_by_id;
+    private function rediretToIndexHelper() {
+        return $this->redirect(['action' => 'index']);
     }
 
     /**
@@ -117,8 +99,8 @@ class ArticlesController extends AppController
            $duplicateReference = false;
 
            // Check if has the same reference.
-           foreach($query as $key => $row) {   
-               if($row['reference'] === $article['reference']) {
+           foreach($query as $key => $row) {
+               if(strcmp($row['reference'], $article['reference']) == 0) {
                    $duplicateReference = true;
                }
            }
@@ -148,12 +130,28 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $article = $this->Articles->get($id, [
             'contain' => [],
         ]);
+
+        //fetch all related articles.
+        $relatedArticles = $this->Articles->fetchAllRelatedArticles();
+        
+        // fetch Associated related articles with an article.
+        $assocRelatedArticles = $this->Articles->fetchAssocRelatedArticles($id);
+        $selectedArticles = $this->Articles->fetchRelatedArticlesByArticleId($id);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $selectedArticles = $this->request->getData()['Related']['articles'];
+            
+            $updateMsg = $this->Articles->associateToArticle($selectedArticles, $id);
+
+            if ($updateMsg !== false) {
+                $this->Flash->success($updateMsg);
+            }
+
+            //@todo Update or insert if article_id is null
             $article = $this->Articles->patchEntity($article, $this->request->getData());
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
@@ -162,7 +160,14 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
-        $this->set(compact('article'));
+        $this->set
+            (compact(
+                'article', 
+                'relatedArticles',
+                'assocRelatedArticles',
+                'selectedArticles'
+            )
+        );
     }
 
     /**

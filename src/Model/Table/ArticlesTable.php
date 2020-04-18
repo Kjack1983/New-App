@@ -6,6 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
+use Cake\Utility;
 
 /**
  * Articles Model
@@ -38,7 +39,6 @@ class ArticlesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-        /* $this->hasMany('relatedArticles'); */
 
         $this->hasMany('relatedArticles', array(
             'foreignKey' => 'article_id'
@@ -51,7 +51,7 @@ class ArticlesTable extends Table
      * @param [integer] $id
      * @return [Array] $related_articles_by_id
      */
-    public function fetchRelatedArticles($id = null) {
+    public function fetchAssocRelatedArticles($id = null) {
         $relatedArticlesTable = TableRegistry::get('related_articles');
         
         $query = $relatedArticlesTable
@@ -68,7 +68,78 @@ class ArticlesTable extends Table
         return $related_articles_by_id;
     }
 
+    /**
+     * Associate related articles with an Article (Update).
+     * Alternative way of updating below:
+     * $relatedArticlesTable->update()->set(['article_id' => $id])->where(['article_id' => $id])->execute();
+     *
+     * @param array $data
+     * @param [integer] $id
+     * @return [string] $errorMsg
+     */
+    public function associateToArticle($data = array(), $id = null) {
+        //$relatedArticlesTable = TableRegistry::get('related_articles');
+        $relatedArticlesTable = TableRegistry::getTableLocator()->get('related_articles');
+        $errorMsg = false;
 
+        foreach($data as $related_id) {
+            $article = $relatedArticlesTable->get($related_id);
+            $article->articles_id = $id;
+            if ($relatedArticlesTable->save($article)) {
+                $errorMsg = 'Related Articles have been successfully updated';
+            } else {
+                $errorMsg = "Something went wrong related articles didn't update";
+            }
+        }
+        return $errorMsg;
+    }
+
+    /**
+     * Fetch related related articles attached in an article
+     *
+     * @param [type] $id
+     * @return [Array] $relatedArticles
+     */
+    public function fetchRelatedArticlesByArticleId($id = null) {
+        $relatedArticlesTable = TableRegistry::get('related_articles');
+
+        $query = $relatedArticlesTable
+                    ->find()
+                    ->select(['id'])
+                    ->where(['articles_id' => $id]);
+
+        $fetchedRelatedArticles = array();
+
+        foreach ($query as $row) {
+            array_push($fetchedRelatedArticles, $row);
+        }
+
+        $relatedArticles = array_reduce($fetchedRelatedArticles, function ($article, $row) {
+            $article[] = $row['id'];
+            return $article;
+        }, []);
+
+        return $relatedArticles;
+    }
+
+    /**
+     * Fetch all related articles
+     *
+     * @return [Array] $allRelatedArticles
+     */
+    public function fetchAllRelatedArticles() {
+        $relatedArticlesTable = TableRegistry::get('related_articles');
+
+        $allRelatedArticles = array();
+
+        $query = $relatedArticlesTable->find('list', array('fields' => array('id', 'title')));
+
+        foreach ($query as $row) {
+            array_push($allRelatedArticles, $row);
+        }
+
+        return $allRelatedArticles;
+    }
     /**
      * Default validation rules.
      *

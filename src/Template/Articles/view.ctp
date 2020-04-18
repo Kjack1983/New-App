@@ -55,7 +55,7 @@
         <h4><?= __('Related Articles') ?></h4>
         <?php
             $htmlRow = '<section class="Posts">'; 
-            foreach($relatedArticles as $row) {    
+            foreach($assocRelatedArticles as $row) {    
                 $htmlRow .= '<article class="Post">' .
                 $this->Html->link('View Post', array('controller' => 'relatedArticles', 'action' => 'view', $row['id']))
                 .'<h3>Title:'.$row['title'].'</h3>'

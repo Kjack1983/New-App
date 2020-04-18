@@ -21,12 +21,40 @@
     <fieldset>
         <legend><?= __('Edit Article') ?></legend>
         <?php
+            $related = array();
+            foreach($selectedArticles as $id) {
+                $related[] = $id - 1;
+            }
+
             echo $this->Form->control('title');
             echo $this->Form->control('body');
             echo $this->Form->control('reference');
             echo $this->Form->control('archived');
+            echo $this->Form->select(
+                'Related.articles', 
+                $relatedArticles, 
+                [
+                    'multiple' => true, 
+                    'value' => $related
+                ]
+            );
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
+    <div class="row">
+    <h4><?= __('Related Articles') ?></h4>
+        <?php
+            $htmlRow = '<section class="Posts">'; 
+            foreach($assocRelatedArticles as $row) {    
+                $htmlRow .= '<article class="Post">' .
+                $this->Html->link('View Post', array('controller' => 'relatedArticles', 'action' => 'view', $row['id']))
+                .'<h3>Title:'.$row['title'].'</h3>'
+                .'<div class="Author">Content: ' .$row['body']. '</div>'                
+                .'</article>';
+            }
+            $htmlRow .= '</section>';
+            echo $htmlRow;
+        ?>
+    </div> 
 </div>
