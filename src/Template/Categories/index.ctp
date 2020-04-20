@@ -4,12 +4,18 @@
  * @var \App\Model\Entity\Category[]|\Cake\Collection\CollectionInterface $categories
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
+<nav class="navbar bg-dark large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="navbar-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add']) ?></li>
+        <li class="nav-item">
+        <?= $this->Html->link(__('New Category'), ['action' => 'add'], array('class' => 'nav-link')) ?><!-- <a class="nav-link" href="#">Link 1</a> -->
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index'], array('class' => 'nav-link')) ?></a>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add'], array('class' => 'nav-link')) ?>
+        </li>
     </ul>
 </nav>
 <div class="categories index large-9 medium-8 columns content">

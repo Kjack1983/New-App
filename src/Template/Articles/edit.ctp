@@ -4,21 +4,39 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
+<div class="main-menu menu-dark large-3 medium-4 bg-dark large-3 medium-4 columns columns menu-accordion  menu-shadow">
+    <div class="main-menu-content ps ps--active-y">
+    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+        <li class="nav-item has-sub">
+            <?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $article->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]
+                ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)],
+                array('class' => 'nav-link')
             )
-        ?></li>
-        <li><?= $this->Html->link(__('List Articles'), ['action' => 'index']) ?></li>
+        ?>
+    </li>
+        </li>
+        <li class="nav-item has-sub">
+            <?= $this->Html->link(
+                $this->Html->tag('i', '', array('class' => array('fa', 'fa-home'))) .
+                $this->Html->tag('span', 'List Articles', array('class' => array('ml-2'))),
+                array(
+                    'controller' => 'Articles',
+                    'action' => 'index',
+                ),
+                array('escape' => false)
+            ); ?>
+        </li>
     </ul>
-</nav>
-<div class="articles form large-9 medium-8 columns content">
+    <div class="ps__rail-x" style="left: 0px; bottom: -424px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+    <div class="ps__rail-y" style="top: 424px; height: 900px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 15px; height: 5px;"></div></div></div>
+</div>
+
+<div class="articles form large-9 medium-8 columns mt-2">
     <?= $this->Form->create($article) ?>
     <fieldset>
+        <div class="form-group">
         <legend><?= __('Edit Article') ?></legend>
         <?php
             $related = array();
@@ -39,22 +57,29 @@
                 ]
             );
         ?>
+        </div>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'), array('class' => 'btn btn-info')) ?>
     <?= $this->Form->end() ?>
-    <div class="row">
+    <div class="mt-5"></div>
+    <h4><?= __('Body') ?></h4>
+    <?= $this->Text->autoParagraph(h($article->body)); ?>
+    <?php 
+        if (count($assocRelatedArticles) !== 0) { 
+    ?>
     <h4><?= __('Related Articles') ?></h4>
+    <div class="row">
         <?php
-            $htmlRow = '<section class="Posts">'; 
-            foreach($assocRelatedArticles as $row) {    
-                $htmlRow .= '<article class="Post">' .
-                $this->Html->link('View Post', array('controller' => 'relatedArticles', 'action' => 'view', $row['id']))
-                .'<h3>Title:'.$row['title'].'</h3>'
-                .'<div class="Author">Content: ' .$row['body']. '</div>'                
-                .'</article>';
+            $htmlRow = '';
+            foreach($assocRelatedArticles as $row) {
+                $htmlRow .= '<div class="col-sm article-width border-success p-3 ml-3 bg-dark">'.
+                '<h3 class="text-info">' . $row['title'] .'</h3 >'.
+                '<p class="text-info">Content: ' .$row['body']. '</p>'
+                .$this->Html->link('View Article >>', array('controller' => 'relatedArticles', 'action' => 'view', $row['id']), array('class' => 'btn btn-info')).
+                '</div>';
             }
-            $htmlRow .= '</section>';
             echo $htmlRow;
         ?>
-    </div> 
+    </div>
+    <?php } ?>
 </div>

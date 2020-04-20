@@ -41,10 +41,11 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('style.css') ?>
-    <?= $this->Html->css('home.css') ?>
     <?= $this->Html->css('articles.css') ?>
-    <?php //$this->Html->css('bootstrap.min.css') ?>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:500i|Roboto:300,400,700|Roboto+Mono" rel="stylesheet">
+    <?= $this->Html->css('bootstrap.min.css') ?>
+    <?= $this->Html->css('components.min.css') ?>
+    <?= $this->Html->css('bootstrap.min.css') ?>
+    <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') ?>
 </head>
 <body class="home">
 

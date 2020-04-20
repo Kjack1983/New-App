@@ -71,7 +71,7 @@ class ArticlesTable extends Table
     /**
      * Associate related articles with an Article (Update).
      * Alternative way of updating below:
-     * $relatedArticlesTable->update()->set(['article_id' => $id])->where(['article_id' => $id])->execute();
+     * !$relatedArticlesTable->update()->set(['article_id' => $id])->where(['article_id' => $id])->execute();
      *
      * @param array $data
      * @param [integer] $id

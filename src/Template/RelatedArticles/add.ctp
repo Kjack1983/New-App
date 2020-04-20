@@ -4,15 +4,46 @@
  * @var \App\Model\Entity\RelatedArticle $relatedArticle
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Related Articles'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add']) ?></li>
+<div class="main-menu menu-dark large-3 medium-4 bg-dark large-3 medium-4 columns columns menu-accordion  menu-shadow">
+    <div class="main-menu-content ps ps--active-y">
+    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+        <li class="nav-item has-sub">
+            <?= $this->Html->link(
+                $this->Html->tag('i', '', array('class' => array('fa', 'fa-home'))) .
+                $this->Html->tag('span', 'List Related Articles', array('class' => array('ml-2'))),
+                array(
+                    'action' => 'index',
+                ),
+                array('escape' => false)
+            ); ?>
+        </li>
+        <li class="nav-item has-sub">
+            <?= $this->Html->link(
+                $this->Html->tag('i', '', array('class' => array('fa', 'fa-home'))) .
+                $this->Html->tag('span', 'Articles', array('class' => array('ml-2'))),
+                array(
+                    'controller' => 'Articles',
+                    'action' => 'index'
+                ),
+                array('escape' => false)
+            ); ?>
+        </li>
+        <li class="nav-item has-sub">
+            <?= $this->Html->link(
+                $this->Html->tag('i', '', array('class' => array('fa', 'fa-newspaper-o'))) .
+                $this->Html->tag('span', 'New Article', array('class' => array('ml-2'))),
+                array(
+                    'controller' => 'Articles',
+                    'action' => 'add'
+                ),
+                array('escape' => false)
+            ); ?>
+        </li>
     </ul>
-</nav>
-<div class="relatedArticles form large-9 medium-8 columns content">
+    <div class="ps__rail-x" style="left: 0px; bottom: -424px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+    <div class="ps__rail-y" style="top: 424px; height: 900px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 15px; height: 5px;"></div></div></div>
+</div>
+<div class="relatedArticles form large-9 medium-8 mt-2 columns">
     <?= $this->Form->create($relatedArticle) ?>
     <fieldset>
         <legend><?= __('Add Related Article') ?></legend>
