@@ -44,7 +44,7 @@
     <div class="ps__rail-x" style="left: 0px; bottom: -424px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
     <div class="ps__rail-y" style="top: 424px; height: 900px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 15px; height: 5px;"></div></div></div>
 </div>
-<div class="articles view large-9 medium-8 columns">
+<div class="articles view large-9 medium-8 columns mt-2">
     <h3><?= h($article->title) ?></h3>
     <table class="table table-striped">
         <tr>
