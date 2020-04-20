@@ -10,6 +10,19 @@
  font-size: 20px;
 }
 
+.Posts .Post a {
+    font-size: 18px !important;
+    text-decoration: underline !important;
+    color: #fff !important;
+}
+
+.actions a {
+    color: #1ea0b4;
+}   
+
+.article-width {
+    max-width: 196px;
+}
 
 .btn {
     display: inline-block;
