@@ -48,12 +48,14 @@
             echo $this->Form->control('body');
             echo $this->Form->control('reference');
             echo $this->Form->control('archived');
+            echo __('Related Articles');
             echo $this->Form->select(
-                'Related.articles', 
+                'Related articles', 
                 $relatedArticles, 
                 [
                     'multiple' => true, 
-                    'value' => $related
+                    'value' => $related,
+                    'label' => 'Related Articles'
                 ]
             );
         ?>
