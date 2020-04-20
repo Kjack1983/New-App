@@ -20,7 +20,7 @@
                 $this->Html->tag('span', 'List Articles', array('class' => array('ml-2'))),
                 array(
                     'controller' => 'Articles',
-                    'action' => 'add',
+                    'action' => 'index',
                 ),
                 array('escape' => false)
             ); ?>
