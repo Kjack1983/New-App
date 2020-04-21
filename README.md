@@ -1,12 +1,5 @@
 # CakePHP Application Skeleton
 
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 3.x.
-
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
-
 For the purpose of this project I used Nginx and CakePHP 3.8 red velvet with the migration plugin and bootstrap framework on the front end part.
 Dispite the fact the assessment says clearly that it should be made with apache web server I used Nginx 
 because I find it more appropriate to my needs. however if you are feel more confortable with Apache please do so and use it accordingly.  
@@ -76,7 +69,8 @@ Please see the screenshot action view of related articles below:
 ![Alt text](/config-database/6.png?raw=true "images")
 
 ```
-Please see the screenshot action edit of related articles below:
+Please see the screenshot action edit of related articles below: 
+The user will have the ability to edit the related article and also select another article to be attached to.
 ```
 
 ![Alt text](/config-database/7.png?raw=true "images")
