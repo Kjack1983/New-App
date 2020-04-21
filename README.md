@@ -50,7 +50,13 @@ attached related articles please see the screenshot below:
 ![Alt text](/config-database/1.png?raw=true "images")
 
 ```
-3) On action view action the user will be able view the table with the information of the article and the very end the related articled attached to that article.
+3) On article view action the user will be able view the table with the information of the article and also will have the ability to mark the article as archive. 
 ```
 
 ![Alt text](/config-database/2.png?raw=true "images")
+
+```
+If the user clicks the archieve button he will be redirect to the index action view and the article will be marked as archieve please see the screenshot below.
+```
+
+![Alt text](/config-database/3.png?raw=true "images")
