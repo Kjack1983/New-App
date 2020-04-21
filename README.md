@@ -9,7 +9,7 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
 
 For the purpose of this project I used Nginx and CakePHP 3.8 red velvet with the migration plugin and bootstrap framework on the front end part.
 Dispite the fact the assessment says clearly that it should be made with apache web server I used Nginx 
-because I find more appropriate to my needs. however if you are feel more confortable with Apache please do so and use it accordingly.  
+because I find it more appropriate to my needs. however if you are feel more confortable with Apache please do so and use it accordingly.  
 
 The Nginx server block file is on config-database folder.
 
@@ -56,7 +56,14 @@ attached related articles please see the screenshot below:
 ![Alt text](/config-database/2.png?raw=true "images")
 
 ```
-If the user clicks the archieve button he will be redirect to the index action view and the article will be marked as archieve please see the screenshot below.
+4) If the user clicks the archieve button he will be redirect to the index action view and the article will be marked as archieve please see the screenshot below.
 ```
 
 ![Alt text](/config-database/3.png?raw=true "images")
+
+
+```
+5) In addition when an article is deleted also all the attached related articles are deleted. The user also will have the ability to view/edit/create/delete related articles. When a new related article is created then user will have the ability to select in which article shoudl be attached.
+```
+
+![Alt text](/config-database/4.png?raw=true "images")
