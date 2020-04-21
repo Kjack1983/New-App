@@ -4,15 +4,6 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
-<!-- <nav class="navbar bg-dark large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="navbar-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Article'), ['action' => 'edit', $article->id], array('class' => 'nav-link')) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Article'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)], array('class' => 'nav-link')) ?> </li>
-        <li><?= $this->Html->link(__('List Articles'), ['action' => 'index'], array('class' => 'nav-link')) ?> </li>
-        <li><?= $this->Html->link(__('New Article'), ['action' => 'add'], array('class' => 'nav-link')) ?> </li>
-    </ul>
-</nav> -->
 <div class="main-menu menu-dark large-3 medium-4 bg-dark large-3 medium-4 columns columns menu-accordion  menu-shadow">
     <div class="main-menu-content ps ps--active-y">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
@@ -31,7 +22,7 @@
         </li>
         <li class="nav-item has-sub">
         <?= $this->Html->link(
-            $this->Html->tag('i', '', array('class' => array('fa', 'fa-home'))) .
+            $this->Html->tag('i', '', array('class' => array('fa', 'fa-newspaper-o'))) .
             $this->Html->tag('span', 'New Article', array('class' => array('ml-2'))),
             array(
                 'controller' => 'Articles',

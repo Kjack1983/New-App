@@ -179,6 +179,14 @@ class ArticlesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
+
+        // fetch Associated related articles with an article.
+        $assocRelatedArticles = $this->Articles->fetchAssocRelatedArticles($id);
+
+        debug($article);
+        debug($assocRelatedArticles);
+        die();
+
         if ($this->Articles->delete($article)) {
             $this->Flash->success(__('The article has been deleted.'));
         } else {

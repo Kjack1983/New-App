@@ -78,7 +78,6 @@ class ArticlesTable extends Table
      * @return [string] $errorMsg
      */
     public function associateToArticle($data = array(), $id = null) {
-        //$relatedArticlesTable = TableRegistry::get('related_articles');
         $relatedArticlesTable = TableRegistry::getTableLocator()->get('related_articles');
         $errorMsg = false;
 

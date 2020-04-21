@@ -4,13 +4,6 @@
  * @var \App\Model\Entity\Article[]|\Cake\Collection\CollectionInterface $articles
  */
 ?>
-<!-- <nav class="navbar bg-dark large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="navbar-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Article'), ['action' => 'add'], array('class' => 'nav-link')) ?></li>
-    </ul>
-</nav> -->
-
 <div class="main-menu menu-dark large-3 medium-4 bg-dark large-3 medium-4 columns columns menu-accordion  menu-shadow">
     <div class="main-menu-content ps ps--active-y">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
@@ -26,7 +19,18 @@
             ); ?>
             
         </li>
-
+        <li class="nav-item has-sub">
+            <?= $this->Html->link(
+                $this->Html->tag('i', '', array('class' => array('fa', 'fa-newspaper-o'))) .
+                $this->Html->tag('span', 'New Article', array('class' => array('ml-2'))),
+                array(
+                    'controller' => 'Articles',
+                    'action' => 'add',
+                ),
+                array('escape' => false)
+            ); ?>
+            
+        </li>
     </ul>
     <div class="ps__rail-x" style="left: 0px; bottom: -424px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
     <div class="ps__rail-y" style="top: 424px; height: 900px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 15px; height: 5px;"></div></div></div>
@@ -34,39 +38,6 @@
 
 <div class="articles index large-9 medium-8 mt-2 columns">
     <h3><?= __('Articles') ?></h3>
-    <!-- <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('reference') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('archived') ?></th>
-            <th scope="col" class="actions"><?= __('Actions') ?></th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            </tr>
-            <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            </tr>
-            <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table> -->
     <table class="table table-striped">
         <thead>
             <tr>

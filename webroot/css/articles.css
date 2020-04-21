@@ -18,8 +18,10 @@
 
 .actions a {
     color: #1ea0b4;
-}   
-
+}
+.actions a:hover {
+    color: #1ea0b4;
+}
 .article-width {
     max-width: 196px;
 }

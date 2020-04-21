@@ -4,20 +4,6 @@
  * @var \App\Model\Entity\RelatedArticle $relatedArticle
  */
 ?>
-<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $relatedArticle->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $relatedArticle->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Related Articles'), ['action' => 'index'], array('class' => 'nav-link')) ?></li>
-        <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index'], array('class' => 'nav-link')) ?></li>
-        <li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add'], array('class' => 'nav-link')) ?></li>
-    </ul>
-</nav> -->
 <div class="main-menu menu-dark large-3 medium-4 bg-dark large-3 medium-4 columns columns menu-accordion  menu-shadow">
     <div class="main-menu-content ps ps--active-y">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
