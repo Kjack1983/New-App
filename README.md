@@ -9,7 +9,9 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
 
 For the purpose of this project I used Nginx and CakePHP 3.8 red velvet with the migration plugin and bootstrap framework on the front end part.
 Dispite the fact the assessment says clearly that it should be made with apache web server I used nginx 
-because I find more advanced and appropriate. The Nginx file is on config-database folder.
+because I find more attractive to my needs and challenging. however if you  
+
+The Nginx server block file is on config-database folder.
 
 This is the table that was created through migration Plugin and the extra fields after the creation of the table.
 in order to view the table and field files please go to config/Migrations
@@ -48,5 +50,10 @@ attached related articles please see the screenshot below:
 ![Alt text](/config-database/1.png?raw=true "images")
 
 ```
-3) On action view action the user will be able 
+3) On action view action the user will be able view the table with the information of the article and the very end the related articled attached to that article.
+```
+
+```
+![Alt text](/config-database/2.png?raw=true "images")
+
 ```
