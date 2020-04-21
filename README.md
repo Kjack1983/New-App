@@ -42,9 +42,10 @@ The db is located into config-database folder.
 
 ```
 1) The user will have the ability to create/delete/edit/view articles. 
-2) On edit view the user has the ability to select from one to multiple related articles and attach it 
-on the article being edited. In addition at the very end the user will be able to view the 
-attached related articles please see the screenshot below:
+2) On edit view the user has the ability to select from one to many related articles and attach them 
+to the article being edited. At the very end the user will be able to view the 
+attached related articles if you click view article then you will get redirected to the related article accordingly 
+please see the screenshot below:
 
 ```
 ![Alt text](/config-database/1.png?raw=true "images")
@@ -69,7 +70,13 @@ attached related articles please see the screenshot below:
 ![Alt text](/config-database/4.png?raw=true "images")
 
 ```
-Please see the screenshot of action view of related articles below:
+Please see the screenshot action view of related articles below:
 ```
 
 ![Alt text](/config-database/6.png?raw=true "images")
+
+```
+Please see the screenshot action edit of related articles below:
+```
+
+![Alt text](/config-database/7.png?raw=true "images")
