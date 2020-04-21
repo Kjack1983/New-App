@@ -110,11 +110,12 @@ class ArticlesController extends AppController
                $error = $this->Flash->error(__('Duplicate Reference Please try again with a new One.')); //'Duplicate Reference Please try again with a new One.'; 
            } else {
                if ($this->Articles->save($article)) {
-                   $this->Flash->success(__('The article has been saved.'));
-                   $this->rediretToIndexHelper();
+                    $this->Flash->success(__('The article has been saved.'));
+                    $this->rediretToIndexHelper();
+               } else {
+                    $this->Flash->error(__('The article could not be saved. Please, try again.'));
                }
            }
-           $this->Flash->error(__('The article could not be saved. Please, try again.'));
        }
 
        $this->set(
@@ -183,9 +184,11 @@ class ArticlesController extends AppController
         // fetch Associated related articles with an article.
         $assocRelatedArticles = $this->Articles->fetchAssocRelatedArticles($id);
 
-        debug($article);
-        debug($assocRelatedArticles);
-        die();
+        $errorMsgRelated = $this->Articles->deleteRelatedArticles($assocRelatedArticles, $id);
+
+        if($errorMsgRelated !== false) {
+            $this->Flash->success($errorMsgRelated);
+        }
 
         if ($this->Articles->delete($article)) {
             $this->Flash->success(__('The article has been deleted.'));

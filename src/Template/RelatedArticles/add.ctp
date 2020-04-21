@@ -53,6 +53,6 @@
             echo $this->Form->control('articles_id', ['options' => $articles]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'), array('class' => 'btn mt-2 btn-success')) ?>
     <?= $this->Form->end() ?>
 </div>

@@ -93,6 +93,23 @@ class ArticlesTable extends Table
         return $errorMsg;
     }
 
+    public function deleteRelatedArticles($data = array(), $id = null) {
+
+        $errorMsg = false;
+        $related_table = TableRegistry::get('related_articles');
+    
+        foreach ($data as $record) {
+            $related_article = $related_table->get($record['id']);
+            if ($related_table->delete($related_article)) {
+                $errorMsg = __('The related article was  successfully deleted.');
+            } else {
+                $errorMsg = __('The article could not be deleted. Please, try again.');
+            }
+        }
+
+        return $errorMsg;
+    }
+
     /**
      * Fetch related related articles attached in an article
      *
