@@ -11,7 +11,7 @@ For the purpose of this project I used Nginx and CakePHP 3.8 red velvet with the
 Dispite the fact the assessment says clearly that it should be made with apache web server I used Nginx 
 because I find it more appropriate to my needs. however if you are feel more confortable with Apache please do so and use it accordingly.  
 
-The Nginx server block file is on config-database folder.
+The Nginx server block file is on config-database folder please note that you need to generate ssl keys.
 
 This is the table that was created through migration Plugin and the extra fields after the creation of the table.
 in order to view the table and field files please go to config/Migrations
@@ -63,7 +63,13 @@ attached related articles please see the screenshot below:
 
 
 ```
-5) In addition when an article is deleted also all the attached related articles are deleted. The user also will have the ability to view/edit/create/delete related articles. When a new related article is created then user will have the ability to select in which article shoudl be attached.
+5) In addition when an article is deleted also all the attached related articles are deleted. The user also will have the ability to view/edit/create/delete related articles. When a new related article is created then user will have the ability to select in which article should be attached.
 ```
 
 ![Alt text](/config-database/4.png?raw=true "images")
+
+```
+Please see the screenshot of action view of related articles below:
+```
+
+![Alt text](/config-database/6.png?raw=true "images")
