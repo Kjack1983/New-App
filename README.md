@@ -33,7 +33,9 @@ The db is located into config-database folder.
 
 ```
 1) The user will have the ability to create/delete/edit/view articles. On edit view the user has the ability to select from one to multiple related articles and attach it on the article being edited.
-![Alt text](/config-database/1.png?raw=true "images")
+
 2) The web application can create/delete/edit/view articles. 
 Every article may have from one to many related articles attached to it.
 ```
+
+![Alt text](/config-database/1.png?raw=true "images")
