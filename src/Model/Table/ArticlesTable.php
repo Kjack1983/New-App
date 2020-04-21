@@ -93,6 +93,13 @@ class ArticlesTable extends Table
         return $errorMsg;
     }
 
+    /**
+     * Delete all related articles
+     *
+     * @param array $data
+     * @param [type] $id
+     * @return void
+     */
     public function deleteRelatedArticles($data = array(), $id = null) {
 
         $errorMsg = false;
@@ -101,7 +108,7 @@ class ArticlesTable extends Table
         foreach ($data as $record) {
             $related_article = $related_table->get($record['id']);
             if ($related_table->delete($related_article)) {
-                $errorMsg = __('The related article was  successfully deleted.');
+                $errorMsg = __('The related articles attached to article with ${id} were  successfully deleted.');
             } else {
                 $errorMsg = __('The article could not be deleted. Please, try again.');
             }
