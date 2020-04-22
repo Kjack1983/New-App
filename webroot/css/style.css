@@ -27,6 +27,10 @@ a {
     color: #1798A5;
 }
 
+.articles a {
+    color: #1798A5;
+}
+
 .side-nav li a:not(.button) {
     color: #15848F;
 }
