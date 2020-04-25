@@ -84,13 +84,18 @@ class ArticlesTable extends Table
         if(!empty($data)) {
             foreach($data as $related_id) {
                 $article = $relatedArticlesTable->get($related_id);
-                
-                $article->articles_id = $id;
-                if ($relatedArticlesTable->save($article)) {
-                    $errorMsg = 'Related Articles have been successfully updated';
-                } else {
-                    $errorMsg = "Something went wrong related articles didn't update";
+                try {
+                    $article->articles_id = $id;
+                    if ($relatedArticlesTable->save($article)) {
+                        $errorMsg = 'Related Articles have been successfully updated';
+                    } else {
+                        $errorMsg = "Something went wrong related articles didn't update";
+                    }
                 }
+                catch (Exception $ex){
+                    throw 'Record not found' .$ex->getMessage();
+                }
+                
             }
         }
         return $errorMsg;
@@ -110,14 +115,14 @@ class ArticlesTable extends Table
     
         foreach ($data as $record) {
             $related_article = $related_table->get($record['id']);
-            if(!empty($related_article)) {
+            try {
                 if ($related_table->delete($related_article)) {
                     $errorMsg = __('The related articles attached to article with ${id} were  successfully deleted.');
                 } else {
                     $errorMsg = __('The article could not be deleted. Please, try again.');
                 }
-            } else {
-                throw new Exception('Record with record id ' . $record['id'] . ' not found');
+            } catch (\Throwable $th) {
+                throw new Exception('Record with record id ' . $th . ' not found');
             }
         }
 
@@ -140,8 +145,12 @@ class ArticlesTable extends Table
 
         $fetchedRelatedArticles = array();
 
-        foreach ($query as $row) {
-            array_push($fetchedRelatedArticles, $row);
+        try {
+            foreach ($query as $row) {
+                array_push($fetchedRelatedArticles, $row);
+            }
+        } catch (\Throwable $th) {
+            throw 'did not find any rows' .$th;
         }
 
         $relatedArticles = array_reduce($fetchedRelatedArticles, function ($article, $row) {
@@ -164,8 +173,12 @@ class ArticlesTable extends Table
 
         $query = $relatedArticlesTable->find('list', array('fields' => array('id', 'title')));
 
-        foreach ($query as $row) {
-            array_push($allRelatedArticles, $row);
+        try {
+            foreach ($query as $row) {
+                array_push($allRelatedArticles, $row);
+            }
+        } catch (\Throwable $th) {
+            throw 'did not find any rows' .$th;
         }
 
         return $allRelatedArticles;
