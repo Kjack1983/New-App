@@ -81,13 +81,16 @@ class ArticlesTable extends Table
         $relatedArticlesTable = TableRegistry::getTableLocator()->get('related_articles');
         $errorMsg = false;
 
-        foreach($data as $related_id) {
-            $article = $relatedArticlesTable->get($related_id);
-            $article->articles_id = $id;
-            if ($relatedArticlesTable->save($article)) {
-                $errorMsg = 'Related Articles have been successfully updated';
-            } else {
-                $errorMsg = "Something went wrong related articles didn't update";
+        if(!empty($data)) {
+            foreach($data as $related_id) {
+                $article = $relatedArticlesTable->get($related_id);
+                
+                $article->articles_id = $id;
+                if ($relatedArticlesTable->save($article)) {
+                    $errorMsg = 'Related Articles have been successfully updated';
+                } else {
+                    $errorMsg = "Something went wrong related articles didn't update";
+                }
             }
         }
         return $errorMsg;
@@ -107,10 +110,14 @@ class ArticlesTable extends Table
     
         foreach ($data as $record) {
             $related_article = $related_table->get($record['id']);
-            if ($related_table->delete($related_article)) {
-                $errorMsg = __('The related articles attached to article with ${id} were  successfully deleted.');
+            if(!empty($related_article)) {
+                if ($related_table->delete($related_article)) {
+                    $errorMsg = __('The related articles attached to article with ${id} were  successfully deleted.');
+                } else {
+                    $errorMsg = __('The article could not be deleted. Please, try again.');
+                }
             } else {
-                $errorMsg = __('The article could not be deleted. Please, try again.');
+                throw new Exception('Record with record id ' . $record['id'] . ' not found');
             }
         }
 
@@ -163,6 +170,23 @@ class ArticlesTable extends Table
 
         return $allRelatedArticles;
     }
+
+    public function fetchAllRelatedArticlesIds() {
+        $query = TableRegistry::getTableLocator()->get('related_articles')->find();
+
+        $related_ids = array();
+
+        if(!empty($query)) {
+            foreach ($query as $article) {
+                $related_ids[$article->id] = $article->title;
+            }
+        } else {
+            throw new Exception('Error during the read of the user data: '.$query);
+        }
+
+        return $related_ids;
+    }
+
     /**
      * Default validation rules.
      *

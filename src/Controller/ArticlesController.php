@@ -135,16 +135,16 @@ class ArticlesController extends AppController
             'contain' => [],
         ]);
 
-        //fetch all related articles.
-        $relatedArticles = $this->Articles->fetchAllRelatedArticles();
+        // Fetch related articles.
+        $relatedArticlesId = $this->Articles->fetchAllRelatedArticlesIds();
         
         // fetch Associated related articles with an article.
         $assocRelatedArticles = $this->Articles->fetchAssocRelatedArticles($id);
         $selectedArticles = $this->Articles->fetchRelatedArticlesByArticleId($id);
-        
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $selectedArticles = $this->request->getData()['Related']['articles'];
-            
+            $selectedArticles = $this->request->getData()['Related_articles'];
+
             $updateMsg = $this->Articles->associateToArticle($selectedArticles, $id);
 
             if ($updateMsg !== false) {
@@ -156,13 +156,14 @@ class ArticlesController extends AppController
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
                 $this->rediretToIndexHelper();
+            } else {
+                $this->Flash->error(__('The article could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
         $this->set
             (compact(
                 'article', 
-                'relatedArticles',
+                'relatedArticlesId',
                 'assocRelatedArticles',
                 'selectedArticles'
             )

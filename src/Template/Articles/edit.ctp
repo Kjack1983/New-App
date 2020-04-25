@@ -12,10 +12,6 @@
         <div class="form-group">
         <legend><?= __('Edit Article') ?></legend>
         <?php
-            $related = array();
-            foreach($selectedArticles as $id) {
-                $related[] = $id - 1;
-            }
 
             echo $this->Form->control('title');
             echo $this->Form->control('body');
@@ -24,13 +20,14 @@
             echo __('Related Articles');
             echo $this->Form->select(
                 'Related articles', 
-                $relatedArticles, 
+                $relatedArticlesId, 
                 [
                     'multiple' => true, 
-                    'value' => $related,
-                    'label' => 'Related Articles'
+                    'label' => 'Related Articles',
+                    'value' => $selectedArticles
                 ]
             );
+            
         ?>
         </div>
     </fieldset>
